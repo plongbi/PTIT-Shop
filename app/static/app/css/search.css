@@ -1,0 +1,21 @@
+body{
+    padding-top: 30px;
+}
+.search-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #007bff; /* Màu xanh dương cho phần "Kết quả tìm kiếm cho" */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-title span {
+    color: #e74c3c; /* Màu đỏ cho từ khóa tìm kiếm */
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.no-result h4 span {
+    color: #e74c3c;
+    font-weight: 700;
+}

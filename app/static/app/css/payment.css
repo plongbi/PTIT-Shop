@@ -1,0 +1,77 @@
+.payment-methods {
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.payment-method-item {
+    position: relative;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.payment-card {
+    padding: 1rem 1.25rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    background-color: #fff;
+}
+
+.payment-icon i {
+    font-size: 1.5rem;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.payment-card:hover {
+    background-color: #f8f9fa;
+    border-color: #c0c0c0;
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+/* Khi được chọn */
+input[type="radio"]:checked + label .payment-card {
+    border: 2px solid #4CAF50;
+    background-color: #e8f5e9;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    transform: scale(1.01);
+}
+
+input[type="radio"]:checked + label .payment-icon i {
+    opacity: 1;
+    color: #4CAF50;
+}
+
+.payment-card .flex-grow-1 .fw-medium {
+    font-weight: 600;
+    color: #333;
+}
+
+.payment-card p {
+    color: #666;
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.radio-circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    background-color: #fff;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+input[type="radio"]:checked + label .radio-circle {
+    border-color: #4CAF50;
+    background-color: #4CAF50;
+}
