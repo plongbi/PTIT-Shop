@@ -1,6 +1,6 @@
-**Backend**: Django, Python
-**Database**: SQLite
-**Frontend**: HTML, CSS, JavaScript, Bootstrap
+- **Backend**: Django, Python
+- **Database**: SQLite
+- **Frontend**: HTML, CSS, JavaScript, Bootstrapp
 
 
 ## Cấu trúc dự án
