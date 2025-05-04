@@ -1,7 +1,8 @@
+## Công nghệ sử dụng
+
 - **Backend**: Django, Python
 - **Database**: SQLite
 - **Frontend**: HTML, CSS, JavaScript, Bootstrapp
-
 
 ## Cấu trúc dự án
 
