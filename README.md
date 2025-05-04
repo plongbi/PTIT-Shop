@@ -1,23 +1,25 @@
-Frontend: HTML, CSS, JavaScript, Bootstrap
-Backend: Django
-Database: SQlite
+**Backend**: Django, Python
+**Database**: SQLite
+**Frontend**: HTML, CSS, JavaScript, Bootstrap
 
-##Cấu trúc dự án
 
+## Cấu trúc dự án
+
+```
 PTIT-Shop/
 │
 ├── app/                            # Ứng dụng chính của dự án
 │   ├── migrations/                 # Các file migration của database
-│   ├── static/                     # Static (CSS, JS, Images)
+│   ├── static/                     # Static files (CSS, JS, Images)
 │   │   ├── app/
-│   │   │   ├── css/                # CSS 
-│   │   │   ├── images/             # Image 
-│   │   │   └── js/                 # JavaScript 
+│   │   │   ├── css/                # CSS files
+│   │   │   ├── images/             # Image files
+│   │   │   └── js/                 # JavaScript files
 │   │   └── assets/                 # Các tài nguyên khác
 │   │
-│   ├── templates/                  # HTML
+│   ├── templates/                  # Template HTML files
 │   │   └── app/
-│   │       ├── base.html           # Cơ sở
+│   │       ├── base.html           # Template cơ sở
 │   │       ├── home.html           # Trang chủ
 │   │       ├── detail.html         # Chi tiết sản phẩm
 │   │       ├── cart.html           # Giỏ hàng
@@ -29,26 +31,30 @@ PTIT-Shop/
 │   │       ├── category.html       # Danh mục sản phẩm
 │   │       └── introduce.html      # Giới thiệu
 │   │
-│   ├── admin.py                    # Admin panel
-│   ├── apps.py                     # App
-│   ├── models.py                   # Models
-│   ├── urls.py                     # URL 
-│   ├── views.py                    # Views
-│   └── tests.py                    # Tests
+│   ├── admin.py                    # Cấu hình admin panel
+│   ├── apps.py                     # Cấu hình app
+│   ├── models.py                   # Định nghĩa models
+│   ├── urls.py                     # URL routing của app
+│   ├── views.py                    # Logic xử lý views
+│   └── tests.py                    # Unit tests
 │
-├── media/                          # Media 
+├── media/                          # Media files uploaded
 │
 ├── webbanhang/                     # Cấu hình chính của dự án
 │   ├── __init__.py
 │   ├── asgi.py                     # ASGI config
 │   ├── settings.py                 # Cài đặt dự án
-│   ├── urls.py                     # URL chính
+│   ├── urls.py                     # URL routing chính
 │   └── wsgi.py                     # WSGI config
 │
 ├── db.sqlite3                      # SQLite database
 ├── manage.py                       # Quản lý dự án Django
+├── requirements.txt                # Các thư viện cần thiết
+└── README.md                       # Thông tin dự án
+```
 
-##Các chức năng chính
+## Các chức năng chính
+
 1. **Hệ thống xác thực người dùng**
    - Đăng ký
    - Đăng nhập
