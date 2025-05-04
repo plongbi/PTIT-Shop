@@ -7,9 +7,6 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 # Create your views here.
 
-def product(request):
-    return render(request, 'app/product.html')
-
 def payment(request):
     user = request.user
     checkout_data = request.session.get('checkout_data')
@@ -41,10 +38,6 @@ def payment(request):
         'message': message,
     })
 
-
-
-
-
 def introduce(request):
     context = {}
     return render(request, 'app/introduce.html', context)
@@ -63,10 +56,8 @@ def detail(request, id):
     product = get_object_or_404(Product, id=id)
     categories = Category.objects.filter(is_sub=False)
 
-    # ✅ Lấy các category của sản phẩm
     product_categories = product.category.all()
 
-    # ✅ Lấy các sản phẩm liên quan từ các category đó
     related_products = Product.objects.filter(
         category__in=product_categories
     ).exclude(id=product.id).distinct()[:4]
@@ -118,10 +109,7 @@ def home(request):
     categories = Category.objects.filter(is_sub=False)
     active_category = request.GET.get('category', '')
 
-    # Lấy tất cả sản phẩm và tính toán giảm giá ngẫu nhiên cho từng sản phẩm
     products = Product.objects.all()
-
-    # Sắp xếp các sản phẩm theo thứ tự ngẫu nhiên
     products = list(products)  
     random.shuffle(products)  
 
@@ -130,7 +118,8 @@ def home(request):
         product.sale_price = int(product.price * (1 - product.discount_percent / 100))
 
     flash_sale_products = products[:6]  # Chọn 6 sản phẩm đầu tiên từ danh sách
-
+    if not request.user.is_authenticated:
+        return redirect('login')
     context = {
         'products': products,
         'flash_sale_products': flash_sale_products,
@@ -144,8 +133,6 @@ def search(request):
     searched = ""
     keys = []
     if request.method == 'POST':
-        # searched = request.POST['searched']
-        # keys = Product.objects.filter(name__icontains=searched)
         searched = request.POST['searched'].strip().lower()  # Chuyển tất cả về chữ thường
         keys = Product.objects.filter(name__icontains=searched)  # Lọc sản phẩm với từ khóa không phân biệt hoa thường
     if request.user.is_authenticated:
@@ -173,19 +160,19 @@ def register(request):
 
 def loginPage(request):
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('home')  # Chuyển đến home nếu đã đăng nhập
 
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        
+
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('home')  # Chuyển sang trang home sau khi đăng nhập thành công
         else:
             messages.info(request, 'Tên người dùng hoặc mật khẩu không chính xác!')
-    
+
     return render(request, 'app/login.html')
 
 def logoutPage(request):
@@ -209,26 +196,23 @@ def cart(request):
 
 def checkout(request):
     user = request.user
-    items = []  # Danh sách sản phẩm nếu người dùng không đăng nhập
+    items = []  
     order = None
 
     if user.is_authenticated:
         order, created = Order.objects.get_or_create(customer=user, complete=False)
         items = order.orderitem_set.all()
 
-    # Kiểm tra khi có request method là POST
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
         address = request.POST.get('address')
         number = request.POST.get('number')
 
-        # Kiểm tra xem thông tin cá nhân có đầy đủ không
         if not (name and email and address and number):
             messages.error(request, "Vui lòng điền đầy đủ thông tin cá nhân.")
             return redirect('checkout')
 
-        # Lưu thông tin vào session (để chuyển sang payment)
         request.session['checkout_data'] = {
             'name': name,
             'email': email,
@@ -236,18 +220,12 @@ def checkout(request):
             'number': number,
         }
 
-        # Chuyển sang trang payment
         return redirect('payment')
 
     return render(request, 'app/checkout.html', {
         'items': items,
         'order': order,
     })
-
-
-
-
-
 
 def updateItem(request):
     data = json.loads(request.body)
@@ -273,7 +251,6 @@ def updateItem(request):
     if orderItem.quantity <= 0:
         orderItem.delete()
 
-    # Trả về phản hồi JSON với thông tin mới
     response_data = {
         'cartItems': order.get_cart_items,
         'cartTotal': order.get_cart_total,
