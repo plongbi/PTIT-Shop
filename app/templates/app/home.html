@@ -21,12 +21,10 @@
 </div>
 <hr style="border: none; border-top: 3px solid #ff5722; width: 100%; margin: 20px 0;">
 {% endblock banner_slider %}
-
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'app/css/home.css' %}?v=3">
 {% endblock extra_css %}
 {% block extra_js %}
-<script src="{% static 'js/home.js' %}"></script>
 <script>
   // Hàm tạo phần trăm giảm giá ngẫu nhiên
   function getRandomDiscount() {
@@ -70,23 +68,26 @@
       const discountPercent = parseInt(discountLabel.textContent, 10); // Lấy giá trị phần trăm giảm giá
     });
 
-    const backToTopBtn = document.getElementById("backToTopBtn");
-    window.addEventListener("scroll", function () {
+  const backToTopButton = document.getElementById('back-to-top');
+  
+  if (backToTopButton) {
+    window.addEventListener('scroll', function() {
       if (window.scrollY > 300) {
-        backToTopBtn.style.display = "block";
+        backToTopButton.classList.add('visible');
       } else {
-        backToTopBtn.style.display = "none";
+        backToTopButton.classList.remove('visible');
       }
     });
-
-    backToTopBtn.addEventListener("click", function () {
+  
+    // Cuộn mượt lên đầu trang
+    backToTopButton.addEventListener('click', function() {
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
       });
     });
-  });
-
+  }
+});
 </script>
 {% endblock extra_js %}
 
@@ -218,6 +219,8 @@
   </div>
 </div>
 <!--Back on top button-->
-<button id="backToTopBtn" title="Lên đầu trang">⬆</button>
+<button id="back-to-top" class="back-to-top" aria-label="Về đầu trang">
+  <i class="bi bi-arrow-up"></i>
+</button>
 {% endblock main-content %}
 
